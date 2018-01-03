@@ -1,7 +1,7 @@
 import model.GameZone;
+import vue.Panel;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Created by djiby on 28/12/17.
@@ -14,9 +14,8 @@ public class Main {
         window.setSize(500, 500);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel panel = new JPanel();
-        GameZone gameZone = new GameZone(20, 20, 100, 100, Color.RED);
-
+        Panel panel = new Panel();
+        //panel.setBackground(Color.red);
         window.setContentPane(panel);
         window.setVisible(true);
     }
