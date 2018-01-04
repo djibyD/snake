@@ -1,5 +1,8 @@
 package vue;
 
+import model.GameZone;
+import model.Obstacle;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,21 +11,20 @@ import java.awt.*;
  */
 public class Panel extends JPanel{
 
-    private Shape shape;
-    //Center of every component
+    private GameZone gameZone;
+    private Obstacle obstacle;
 
     public Panel() {
-        System.out.println("Hello snake");
+        this.gameZone = new GameZone();
+        this.obstacle = new Obstacle();
     }
 
     public void paintComponent(Graphics g) {
-        this.setBackground(Color.red);
-        System.out.println("Inside panel");
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D)g;
-
-        graphics2D.setColor(Color.blue);
-        graphics2D.fillRect(20, 20, 100, 100);
-        System.out.println("Hello");
+        this.gameZone.setBorderColour(Color.RED);
+        this.gameZone.drawZone(graphics2D);
+        this.obstacle.setShape(new Rectangle(60, 100, 10, 10));
+        this.obstacle.draw(graphics2D);
     }
 }

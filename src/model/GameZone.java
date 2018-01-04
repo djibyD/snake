@@ -7,53 +7,13 @@ import java.awt.*;
  */
 public class GameZone {
 
-    private int abcisse;
-    private int ordonnee;
-    private int width;
-    private int height;
+    private final int ABSCISSE = 20;
+    private final int ORDONEE = 20;
+    private final int WIDTH = 400;
+    private final int HEIGHT = 300;
     private Color borderColour;
 
     public GameZone() {}
-
-    public GameZone(int abcisse, int ordonnee, int width, int height, Color borderColour) {
-        this.abcisse = abcisse;
-        this.ordonnee = ordonnee;
-        this.width = width;
-        this.height = height;
-        this.borderColour = borderColour;
-    }
-
-    public int getAbcisse() {
-        return abcisse;
-    }
-
-    public void setAbcisse(int abcisse) {
-        this.abcisse = abcisse;
-    }
-
-    public int getOrdonnee() {
-        return ordonnee;
-    }
-
-    public void setOrdonnee(int ordonnee) {
-        this.ordonnee = ordonnee;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
 
     public Color getBorderColour() {
         return borderColour;
@@ -63,7 +23,8 @@ public class GameZone {
         this.borderColour = borderColour;
     }
 
-    public void DrawZone(){
-
+    public void drawZone(Graphics2D graphics2D){
+        graphics2D.setColor(this.borderColour);
+        graphics2D.drawRect(ABSCISSE, ORDONEE, WIDTH, HEIGHT);
     }
 }

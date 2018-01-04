@@ -7,28 +7,25 @@ import java.awt.*;
  */
 public abstract class Brick {
 
+    private Shape shape;
     private Point position;
     private Color color;
 
-    public Point getPosition() {
-        return position;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setPosition(Point position) {
-        this.position = position;
+    public void setShape(Shape shape) {
+        this.shape = shape;
     }
 
     public void setColor(Color color) {
         this.color = color;
     }
 
-    public Brick(Point position, Color color) {
+    public void setPosition(Point position) {
         this.position = position;
-        this.color = color;
-
     }
+
+    public void draw(Graphics2D graphics2D) {
+        graphics2D.setColor(this.color);
+        graphics2D.fill(this.shape);
+    }
+
 }
