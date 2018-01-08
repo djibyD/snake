@@ -10,6 +10,8 @@ import java.util.List;
 public class Snake {
 
     private List<Part> body = new ArrayList<Part>();
+    private Direction direction;
+    private double speed;
 
     public Snake() {
         Part p1 = new Part(); p1.setShape(new Rectangle(250, 150, 10, 10));
@@ -18,12 +20,38 @@ public class Snake {
         this.body.add(p1);
         this.body.add(p2);
         this.body.add(p3);
+        this.direction = Direction.NORTH;
     }
-    
+
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
     public  void draw(Graphics2D graphics2D) {
         graphics2D.setColor(Color.BLUE);
         for (Part part : body) {
             part.draw(graphics2D);
         }
+    }
+
+    public void move() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
     }
 }
