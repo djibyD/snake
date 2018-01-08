@@ -11,6 +11,14 @@ public abstract class Brick {
     private Point position;
     private Color color;
 
+    public Color getColor() {
+        return color;
+    }
+
+    public Shape getShape() {
+        return shape;
+    }
+
     public void setShape(Shape shape) {
         this.shape = shape;
     }
@@ -23,9 +31,6 @@ public abstract class Brick {
         this.position = position;
     }
 
-    public void draw(Graphics2D graphics2D) {
-        graphics2D.setColor(this.color);
-        graphics2D.fill(this.shape);
-    }
+    public abstract void draw(Graphics2D graphics2D);
 
 }
