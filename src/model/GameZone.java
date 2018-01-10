@@ -7,10 +7,10 @@ import java.awt.*;
  */
 public class GameZone {
 
-    private final int ABSCISSE = 20;
-    private final int ORDONEE = 20;
-    private final int WIDTH = 400;
-    private final int HEIGHT = 300;
+    private final int ABSCISSE = 200;
+    private final int ORDONEE = 150;
+    private final int WIDTH = 900;
+    private final int HEIGHT = 500;
     private Color borderColour;
 
     public GameZone() {}
