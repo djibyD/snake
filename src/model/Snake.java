@@ -58,20 +58,27 @@ public class Snake {
     }
 
     public void move() {
+        System.out.println("Inside moves");
         this.state = State.MOVING;
         Thread thread = new Thread(new Runnable() {
-
             @Override
             public void run() {
-                while (state.equals(State.MOVING)){
+                while (getState().equals(State.MOVING)){
                     System.out.println("Snake is moving !");
                 }
             }
         });
+        thread.start();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        stop();
     }
 
     public void stop() {
+        System.out.println("Snake is stopped !");
         this.state = State.STOPPED;
-
     }
 }

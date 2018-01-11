@@ -11,8 +11,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello snake !");
         JFrame window = new JFrame("Snake");
-        window.setExtendedState(Frame.MAXIMIZED_BOTH);
-        System.out.println("Width : " + window.getBounds());
+        window.setSize(800, 500);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Panel panel = new Panel();

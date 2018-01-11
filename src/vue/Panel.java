@@ -32,12 +32,5 @@ public class Panel extends JPanel{
         this.snake.draw(graphics2D);
 
         this.snake.move();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
     }
 }
