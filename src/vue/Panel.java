@@ -14,6 +14,11 @@ public class Panel extends JPanel{
 
     private GameZone gameZone;
     private Obstacle obstacle;
+
+    public Snake getSnake() {
+        return snake;
+    }
+
     private Snake snake;
 
     public Panel() {
@@ -31,6 +36,5 @@ public class Panel extends JPanel{
         this.obstacle.draw(graphics2D);
         this.snake.draw(graphics2D);
 
-        this.snake.move();
     }
 }
