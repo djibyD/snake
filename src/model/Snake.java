@@ -1,5 +1,6 @@
 package model;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +17,18 @@ public class Snake {
 
 
     public Snake() {
-        Part p1 = new Part(); p1.setShape(new Rectangle(250, 150, 10, 10));
-        Part p2 = new Part(); p2.setShape(new Rectangle(250, 160, 10, 10));
-        Part p3 = new Part(); p3.setShape(new Rectangle(250, 170, 10, 10));
-        this.body.add(p1);
-        this.body.add(p2);
+        Part p1 = new Part();
+        p1.setPosition(new Point(250, 350));
+        p1.setShape(new Rectangle(250, 350, 10, 10));
+        Part p2 = new Part();
+        p2.setPosition(new Point(250, 361));
+        p2.setShape(new Rectangle(250, 361, 10, 10));
+        Part p3 = new Part();
+        p3.setPosition(new Point(250, 372));
+        p3.setShape(new Rectangle(250, 372, 10, 10));
         this.body.add(p3);
+        this.body.add(p2);
+        this.body.add(p1);
         this.direction = Direction.NORTH;
         this.state = State.STOPPED;
     }
@@ -57,19 +64,22 @@ public class Snake {
         }
     }
 
-    public void move() {
+    public void move(JPanel panel) {
         System.out.println("snake is moving !");
-        this.state = State.MOVING;
+        state = State.MOVING;
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (getState().equals(State.MOVING)){
+                while (state.equals(State.MOVING)){
                     System.out.println("Snake stepped forward !");
+                    forward();
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    snakeString();
+                    panel.repaint();
 
                 }
             }
@@ -80,7 +90,32 @@ public class Snake {
     public void stop() {
         System.out.println("Snake is stopped !");
         System.out.println("snake old state "+  state);
-        this.state = State.STOPPED;
+        state = State.STOPPED;
         System.out.println("snake new state "+ state);
     }
+
+    public Point getHeadPosition() {
+        return body.get(0).getPosition();
+    }
+
+    public void forward() {
+        //Only moving north in the case
+        int snakeLength = body.size();
+        Part newHead = new Part();
+        Point headPosition = getHeadPosition();
+        body.remove(snakeLength-1);
+        int x = headPosition.x;
+        int y = headPosition.y;
+        newHead.setPosition(new Point(x, y-11));
+        newHead.setShape(new Rectangle(x, y-11, 10, 10));
+        body.add(0, newHead);
+    }
+
+    public void snakeString(){
+        System.out.println("Current snake position  !");
+        for (Part part : body){
+            System.out.println(part.getPosition().x + " " + part.getPosition().y);
+        }
+    }
+
 }

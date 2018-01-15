@@ -23,9 +23,9 @@ public abstract class Brick {
         this.shape = shape;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
+    public void setColor(Color color) { this.color = color; }
+
+    public Point getPosition() { return position; }
 
     public void setPosition(Point position) {
         this.position = position;

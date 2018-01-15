@@ -29,7 +29,7 @@ public class Main {
         moveButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panel.getSnake().move();
+                panel.getSnake().move(panel);
             }
         });
 
