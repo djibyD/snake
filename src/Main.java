@@ -1,3 +1,4 @@
+import model.Direction;
 import vue.Panel;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ public class Main {
 
         Panel panel = new Panel();
         panel.setLayout(new BorderLayout());
-        JButton stopButton = new JButton("stop snake");
+        JButton stopButton = new JButton("stop");
         stopButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -25,10 +26,31 @@ public class Main {
             }
         });
 
-        JButton moveButton = new JButton("move snake");
+        JButton moveButton = new JButton("move");
         moveButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                panel.getSnake().move(panel);
+            }
+        });
+
+        JButton leftButton = new JButton("left");
+        leftButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel.getSnake().setDirection(Direction.LEFT);
+                System.out.println("Change direction to left: " + panel.getSnake().getDirection());
+                panel.getSnake().move(panel);
+
+            }
+        });
+
+        JButton rightButton = new JButton("right");
+        rightButton.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel.getSnake().setDirection(Direction.RIGHT);
+                System.out.println("Change direction to right: " + panel.getSnake().getDirection());
                 panel.getSnake().move(panel);
             }
         });
@@ -37,6 +59,8 @@ public class Main {
         menu.setLayout(new GridLayout(1, 2));
         menu.add(moveButton);
         menu.add(stopButton);
+        menu.add(leftButton);
+        menu.add(rightButton);
 
         panel.add(menu, BorderLayout.SOUTH);
 

@@ -29,7 +29,6 @@ public class Snake {
         this.body.add(p3);
         this.body.add(p2);
         this.body.add(p1);
-        this.direction = Direction.NORTH;
         this.state = State.STOPPED;
     }
 
@@ -72,13 +71,17 @@ public class Snake {
             public void run() {
                 while (state.equals(State.MOVING)){
                     System.out.println("Snake stepped forward !");
-                    forward();
+                    switch (direction){
+                        case LEFT: left(); System.out.println("Direction: "+ direction); break;
+                        case RIGHT: right(); System.out.println("Direction: "+ direction); break;
+                        default: forward(); System.out.println("Direction: "+ direction);
+                    }
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    snakeString();
+                    /*snakeString();*/
                     panel.repaint();
 
                 }
@@ -108,6 +111,32 @@ public class Snake {
         int y = headPosition.y;
         newHead.setPosition(new Point(x, y-11));
         newHead.setShape(new Rectangle(x, y-11, 10, 10));
+        body.add(0, newHead);
+    }
+
+    public void left() {
+        //Only moving north in the case
+        int snakeLength = body.size();
+        Part newHead = new Part();
+        Point headPosition = getHeadPosition();
+        body.remove(snakeLength-1);
+        int x = headPosition.x;
+        int y = headPosition.y;
+        newHead.setPosition(new Point(x-11, y));
+        newHead.setShape(new Rectangle(x-11, y, 10, 10));
+        body.add(0, newHead);
+    }
+
+    public void right() {
+        //Only moving north in the case
+        int snakeLength = body.size();
+        Part newHead = new Part();
+        Point headPosition = getHeadPosition();
+        body.remove(snakeLength-1);
+        int x = headPosition.x;
+        int y = headPosition.y;
+        newHead.setPosition(new Point(x+11, y));
+        newHead.setShape(new Rectangle(x+11, y, 10, 10));
         body.add(0, newHead);
     }
 
