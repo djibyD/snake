@@ -56,7 +56,7 @@ public class Snake {
         this.state = state;
     }
 
-    public  void draw(Graphics2D graphics2D) {
+    public void draw(Graphics2D graphics2D) {
         graphics2D.setColor(Color.BLUE);
         for (Part part : body) {
             part.draw(graphics2D);
@@ -71,11 +71,7 @@ public class Snake {
             public void run() {
                 while (state.equals(State.MOVING)){
                     System.out.println("Snake stepped forward !");
-                    switch (direction){
-                        case LEFT: left(); System.out.println("Direction: "+ direction); break;
-                        case RIGHT: right(); System.out.println("Direction: "+ direction); break;
-                        default: forward(); System.out.println("Direction: "+ direction);
-                    }
+
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -92,7 +88,6 @@ public class Snake {
 
     public void stop() {
         System.out.println("Snake is stopped !");
-        System.out.println("snake old state "+  state);
         state = State.STOPPED;
         System.out.println("snake new state "+ state);
     }
@@ -102,6 +97,13 @@ public class Snake {
     }
 
     public void forward() {
+        switch (direction){
+            case EST: break;
+            case WEST: break;
+            case NORTH: break;
+            case SOUTH: break;
+            default:;
+        }
         //Only moving north in the case
         int snakeLength = body.size();
         Part newHead = new Part();
