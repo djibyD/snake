@@ -30,6 +30,7 @@ public class Snake {
         this.body.add(p2);
         this.body.add(p1);
         this.state = State.STOPPED;
+        this.direction = Direction.NORTH;
     }
 
     public Direction getDirection() {
@@ -71,7 +72,7 @@ public class Snake {
             public void run() {
                 while (state.equals(State.MOVING)){
                     System.out.println("Snake stepped forward !");
-
+                    forward();
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -97,13 +98,6 @@ public class Snake {
     }
 
     public void forward() {
-        switch (direction){
-            case EST: break;
-            case WEST: break;
-            case NORTH: break;
-            case SOUTH: break;
-            default:;
-        }
         //Only moving north in the case
         int snakeLength = body.size();
         Part newHead = new Part();
@@ -111,35 +105,49 @@ public class Snake {
         body.remove(snakeLength-1);
         int x = headPosition.x;
         int y = headPosition.y;
-        newHead.setPosition(new Point(x, y-11));
-        newHead.setShape(new Rectangle(x, y-11, 10, 10));
-        body.add(0, newHead);
+
+        switch (direction){
+            case EST:
+                newHead.setPosition(new Point(x+11, y));
+                newHead.setShape(new Rectangle(x+11, y, 10, 10));
+                body.add(0, newHead);
+                break;
+            case WEST:
+                newHead.setPosition(new Point(x-11, y));
+                newHead.setShape(new Rectangle(x-11, y, 10, 10));
+                body.add(0, newHead);
+                break;
+            case NORTH:
+                newHead.setPosition(new Point(x, y-11));
+                newHead.setShape(new Rectangle(x, y-11, 10, 10));
+                body.add(0, newHead);
+                break;
+            case SOUTH:
+                newHead.setPosition(new Point(x, y+11));
+                newHead.setShape(new Rectangle(x, y+11, 10, 10));
+                body.add(0, newHead);
+                break;
+        }
+
+
     }
 
     public void left() {
-        //Only moving north in the case
-        int snakeLength = body.size();
-        Part newHead = new Part();
-        Point headPosition = getHeadPosition();
-        body.remove(snakeLength-1);
-        int x = headPosition.x;
-        int y = headPosition.y;
-        newHead.setPosition(new Point(x-11, y));
-        newHead.setShape(new Rectangle(x-11, y, 10, 10));
-        body.add(0, newHead);
+        switch (direction){
+            case NORTH: setDirection(Direction.WEST); break;
+            case SOUTH: setDirection(Direction.EST); break;
+            case WEST: setDirection(Direction.SOUTH); break;
+            case EST: setDirection(Direction.NORTH); break;
+        }
     }
 
     public void right() {
-        //Only moving north in the case
-        int snakeLength = body.size();
-        Part newHead = new Part();
-        Point headPosition = getHeadPosition();
-        body.remove(snakeLength-1);
-        int x = headPosition.x;
-        int y = headPosition.y;
-        newHead.setPosition(new Point(x+11, y));
-        newHead.setShape(new Rectangle(x+11, y, 10, 10));
-        body.add(0, newHead);
+        switch (direction){
+            case NORTH: setDirection(Direction.EST); break;
+            case SOUTH: setDirection(Direction.WEST); break;
+            case WEST: setDirection(Direction.NORTH); break;
+            case EST: setDirection(Direction.SOUTH); break;
+        }
     }
 
     public void snakeString(){

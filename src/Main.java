@@ -38,10 +38,8 @@ public class Main {
         leftButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panel.getSnake().setDirection(Direction.LEFT);
+                panel.getSnake().left();
                 System.out.println("Change direction to left: " + panel.getSnake().getDirection());
-                panel.getSnake().move(panel);
-
             }
         });
 
@@ -49,9 +47,8 @@ public class Main {
         rightButton.addActionListener(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panel.getSnake().setDirection(Direction.RIGHT);
+                panel.getSnake().right();
                 System.out.println("Change direction to right: " + panel.getSnake().getDirection());
-                panel.getSnake().move(panel);
             }
         });
 
