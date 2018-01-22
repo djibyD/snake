@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Hello snake !");
-        JFrame window = new JFrame("Snake");
+/*        JFrame window = new JFrame("Snake");
         window.setSize(800, 500);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -62,6 +62,8 @@ public class Main {
         panel.add(menu, BorderLayout.SOUTH);
 
         window.setContentPane(panel);
-        window.setVisible(true);
+        window.setVisible(true);*/
+
+        System.out.println("System dimensions: " + Toolkit.getDefaultToolkit().getScreenSize());
     }
 }

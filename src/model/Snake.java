@@ -74,7 +74,7 @@ public class Snake {
                     System.out.println("Snake stepped forward !");
                     forward();
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -133,20 +133,24 @@ public class Snake {
     }
 
     public void left() {
-        switch (direction){
-            case NORTH: setDirection(Direction.WEST); break;
-            case SOUTH: setDirection(Direction.EST); break;
-            case WEST: setDirection(Direction.SOUTH); break;
-            case EST: setDirection(Direction.NORTH); break;
+        if (state == State.MOVING) {
+            switch (direction){
+                case NORTH: setDirection(Direction.WEST); break;
+                case SOUTH: setDirection(Direction.EST); break;
+                case WEST: setDirection(Direction.SOUTH); break;
+                case EST: setDirection(Direction.NORTH); break;
+            }
         }
     }
 
     public void right() {
-        switch (direction){
-            case NORTH: setDirection(Direction.EST); break;
-            case SOUTH: setDirection(Direction.WEST); break;
-            case WEST: setDirection(Direction.NORTH); break;
-            case EST: setDirection(Direction.SOUTH); break;
+        if(state == State.MOVING){
+            switch (direction){
+                case NORTH: setDirection(Direction.EST); break;
+                case SOUTH: setDirection(Direction.WEST); break;
+                case WEST: setDirection(Direction.NORTH); break;
+                case EST: setDirection(Direction.SOUTH); break;
+            }
         }
     }
 
