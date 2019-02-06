@@ -1,3 +1,6 @@
 # To be ignore
+.classpath
+.project
 .idea/
 out/
+/bin/
