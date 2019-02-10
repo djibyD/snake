@@ -7,7 +7,7 @@ import play.Play;
 public class Main {
 
     public static void main(String[] args) {
-       // Game game = new Game();
-    	Play play = new Play();
+       Game game = new Game();
+    	//Play play = new Play();
     }
 }
