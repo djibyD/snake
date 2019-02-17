@@ -14,7 +14,7 @@ import model.Brick;
 import model.Position;
 import model.Snake;
 
-public class Game  extends JFrame implements Runnable {
+public class Game  extends JFrame {
 	
 	private Snake snake;
 	
@@ -27,10 +27,7 @@ public class Game  extends JFrame implements Runnable {
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
-		
-		//Painting
-		paint(getGraphics());
-		run();
+
 	}
 	
 	@Override
@@ -42,21 +39,17 @@ public class Game  extends JFrame implements Runnable {
 			graphics2d.fillRect(brick.getPosition().getAbcisse(), brick.getPosition().getOrdonnee(), 10, 10);
 		}
 	}
-
-	@Override
-	public void run() {
+	
+	public void play() {
 		while(true) {
-			System.out.println("Hello snake!");
 			this.snake.stepForward();
-			this.repaint();
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			paint(getGraphics());
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}		
 		}
 	}
-	
-	
 	
 }

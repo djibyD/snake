@@ -17,9 +17,9 @@ public class Snake {
 	public Snake() {
 		super();
 		body = new ArrayList<>(Arrays.asList(
-				new Brick(new Position(450, 350)),
-				new Brick(new Position(450, 361)),
-				new Brick(new Position(450, 372))
+				new Brick(new Position(450, 338)),
+				new Brick(new Position(450, 349)),
+				new Brick(new Position(450, 350))
 		));
 	}
 
@@ -68,7 +68,7 @@ public class Snake {
 		Position head = body.get(0).getPosition();
 		int nbBrick = body.size() - 1;
 		body.remove(nbBrick);
-		Position newHead = new Position(head.getAbcisse(), head.getOrdonnee() + 11);
+		Position newHead = new Position(head.getAbcisse(), head.getOrdonnee() - 11);
 		body.add(0, new Brick(newHead));
 	}
 	
