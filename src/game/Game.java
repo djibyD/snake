@@ -1,14 +1,19 @@
 package game;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import model.Brick;
 import model.Position;
@@ -26,6 +31,33 @@ public class Game  extends JFrame {
 		this.setSize(new Dimension(900, 700));
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//Game Zone
+		JPanel gameZonePanel = new JPanel(new BorderLayout());
+		gameZonePanel.setSize(800, 600);
+		//gameZonePanel.setBackground(Color.GRAY);
+		
+		//Menu
+		JButton turnLeftButton = new JButton("Left");
+		turnLeftButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				snake.toTheLeft();
+			}
+		});
+		JButton turnRightButton = new JButton("Right");
+		turnRightButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				snake.toTheRight();
+			}
+		});
+		JPanel menuPanel = new JPanel();
+		menuPanel.add(turnLeftButton);
+		menuPanel.add(turnRightButton);
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(gameZonePanel);
+		this.getContentPane().add(menuPanel, BorderLayout.SOUTH);
 		this.setVisible(true);
 
 	}

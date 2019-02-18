@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 /**
  * Created by djiby on 30/12/17.
  */
@@ -17,10 +19,11 @@ public class Snake {
 	public Snake() {
 		super();
 		body = new ArrayList<>(Arrays.asList(
-				new Brick(new Position(450, 338)),
-				new Brick(new Position(450, 349)),
-				new Brick(new Position(450, 350))
+				new Brick(new Position(400, 278)),
+				new Brick(new Position(400, 289)),
+				new Brick(new Position(400, 300))
 		));
+		this.direction = Direction.NORTH;
 	}
 
 	public Snake(List<Brick> body, Direction direction, Double speed, State state) {
@@ -68,8 +71,57 @@ public class Snake {
 		Position head = body.get(0).getPosition();
 		int nbBrick = body.size() - 1;
 		body.remove(nbBrick);
-		Position newHead = new Position(head.getAbcisse(), head.getOrdonnee() - 11);
-		body.add(0, new Brick(newHead));
+		Position newHead;
+		switch (this.direction) {
+		case NORTH:
+			newHead = new Position(head.getAbcisse(), head.getOrdonnee() - 11);
+			body.add(0, new Brick(newHead));
+			break;
+		case SOUTH: 
+			newHead = new Position(head.getAbcisse(), head.getOrdonnee() + 11);
+			body.add(0, new Brick(newHead));
+			break;
+		case EAST:
+			newHead = new Position(head.getAbcisse() + 11, head.getOrdonnee());
+			body.add(0, new Brick(newHead));
+			break;
+		case WEST:
+			newHead = new Position(head.getAbcisse() - 11, head.getOrdonnee());
+			body.add(0, new Brick(newHead));
+			break;
+		default:
+			break;
+		}
+	}
+	
+	public void toTheLeft() {
+		switch (this.direction) {
+		case NORTH: this.direction = Direction.WEST;
+			break;
+		case SOUTH: this.direction = Direction.EAST;
+			break;
+		case WEST: this.direction = Direction.SOUTH;
+			break;
+		case EAST: this.direction = Direction.NORTH;
+			break;
+		default:
+			break;
+		}
+	}
+	
+	public void toTheRight() {
+		switch (this.direction) {
+		case NORTH: this.direction = Direction.EAST;
+			break;
+		case SOUTH: this.direction = Direction.WEST;
+			break;
+		case WEST: this.direction = Direction.NORTH;
+			break;
+		case EAST: this.direction = Direction.SOUTH;
+			break;
+		default:
+			break;
+		}
 	}
 	
 }
