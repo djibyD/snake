@@ -7,9 +7,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,6 +24,8 @@ import model.Snake;
 public class Game  extends JFrame {
 	
 	private Snake snake;
+	private int foodQuantity = 10;
+	private List<Brick> food = new ArrayList<Brick>();
 	
 	public Game() {
 		super();
@@ -31,11 +35,6 @@ public class Game  extends JFrame {
 		this.setSize(new Dimension(900, 700));
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		//Game Zone
-		JPanel gameZonePanel = new JPanel(new BorderLayout());
-		gameZonePanel.setSize(800, 600);
-		//gameZonePanel.setBackground(Color.GRAY);
 		
 		//Menu
 		JButton turnLeftButton = new JButton("Left");
@@ -56,8 +55,11 @@ public class Game  extends JFrame {
 		menuPanel.add(turnLeftButton);
 		menuPanel.add(turnRightButton);
 		this.getContentPane().setLayout(new BorderLayout());
-		this.getContentPane().add(gameZonePanel);
 		this.getContentPane().add(menuPanel, BorderLayout.SOUTH);
+		
+		//Serve food
+		serveFood();
+		
 		this.setVisible(true);
 
 	}
@@ -66,21 +68,50 @@ public class Game  extends JFrame {
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D graphics2d = (Graphics2D) g;
+		graphics2d.setColor(Color.BLUE);
+		for(Brick brick : food) {
+			graphics2d.fillRect(brick.getPosition().getAbcisse(), brick.getPosition().getOrdonnee(), 9, 9);
+		}
+		
 		graphics2d.setColor(Color.RED);
 		for(Brick brick : snake.getBody()) {
-			graphics2d.fillRect(brick.getPosition().getAbcisse(), brick.getPosition().getOrdonnee(), 10, 10);
+			graphics2d.fillRect(brick.getPosition().getAbcisse(), brick.getPosition().getOrdonnee(), 9, 9);
 		}
 	}
 	
 	public void play() {
 		while(true) {
 			this.snake.stepForward();
-			paint(getGraphics());
+			eatAPieceOfFood();
+			this.repaint();
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(250);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}		
+		}
+	}
+	
+	public void serveFood() {
+		Random random = new Random();
+		for(int i =0; i<this.foodQuantity; i++) {
+			Position pieceOfFood = new Position(random.nextInt(76) * 10, random.nextInt(66) * 10);
+			food.add(new Brick(pieceOfFood));
+		}
+	}
+	
+	public boolean isNearFood(Brick snakeHead, Brick food) {
+		return Math.sqrt(Math.pow(snakeHead.getPosition().getAbcisse() - food.getPosition().getAbcisse(), 2.0) 
+				+ Math.pow(snakeHead.getPosition().getOrdonnee() - food.getPosition().getOrdonnee(), 2.0)) <= 5;
+	}
+	
+	public void eatAPieceOfFood() {
+		for(Brick pieceOfFood: food) {
+			if(isNearFood(this.snake.getBody().get(0), pieceOfFood)) {
+				food.remove(pieceOfFood);
+				this.snake.eat();
+				break;
+			}
 		}
 	}
 	

@@ -19,9 +19,9 @@ public class Snake {
 	public Snake() {
 		super();
 		body = new ArrayList<>(Arrays.asList(
-				new Brick(new Position(400, 278)),
-				new Brick(new Position(400, 289)),
-				new Brick(new Position(400, 300))
+				new Brick(new Position(400, 300)),
+				new Brick(new Position(400, 310)),
+				new Brick(new Position(400, 320))
 		));
 		this.direction = Direction.NORTH;
 	}
@@ -74,24 +74,25 @@ public class Snake {
 		Position newHead;
 		switch (this.direction) {
 		case NORTH:
-			newHead = new Position(head.getAbcisse(), head.getOrdonnee() - 11);
+			newHead = new Position(head.getAbcisse(), head.getOrdonnee() - 10);
 			body.add(0, new Brick(newHead));
 			break;
 		case SOUTH: 
-			newHead = new Position(head.getAbcisse(), head.getOrdonnee() + 11);
+			newHead = new Position(head.getAbcisse(), head.getOrdonnee() + 10);
 			body.add(0, new Brick(newHead));
 			break;
 		case EAST:
-			newHead = new Position(head.getAbcisse() + 11, head.getOrdonnee());
+			newHead = new Position(head.getAbcisse() + 10, head.getOrdonnee());
 			body.add(0, new Brick(newHead));
 			break;
 		case WEST:
-			newHead = new Position(head.getAbcisse() - 11, head.getOrdonnee());
+			newHead = new Position(head.getAbcisse() - 10, head.getOrdonnee());
 			body.add(0, new Brick(newHead));
 			break;
 		default:
 			break;
 		}
+		//System.out.println("abs: " + newHead.getAbcisse() + " ord: " + newHead.getOrdonnee());
 	}
 	
 	public void toTheLeft() {
@@ -122,6 +123,32 @@ public class Snake {
 		default:
 			break;
 		}
+	}
+	
+	public void eat() {
+		Position head = body.get(0).getPosition();
+		Position newHead;
+		switch (this.direction) {
+		case NORTH:
+			newHead = new Position(head.getAbcisse(), head.getOrdonnee() - 10);
+			body.add(0, new Brick(newHead));
+			break;
+		case SOUTH: 
+			newHead = new Position(head.getAbcisse(), head.getOrdonnee() + 10);
+			body.add(0, new Brick(newHead));
+			break;
+		case EAST:
+			newHead = new Position(head.getAbcisse() + 10, head.getOrdonnee());
+			body.add(0, new Brick(newHead));
+			break;
+		case WEST:
+			newHead = new Position(head.getAbcisse() - 10, head.getOrdonnee());
+			body.add(0, new Brick(newHead));
+			break;
+		default:
+			break;
+		}
+		
 	}
 	
 }
