@@ -8,8 +8,6 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -68,11 +66,22 @@ public class Game  extends JFrame {
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D graphics2d = (Graphics2D) g;
+		
+		//Game zone
+		graphics2d.setColor(Color.RED);
+		//graphics2d.setStroke(new BasicStroke(3));
+		graphics2d.drawRect(50, 50, 800, 600);
+		
+		//restore stroke
+		//graphics2d.setStroke(defaultStroke);
+		
+		//serve food
 		graphics2d.setColor(Color.BLUE);
 		for(Brick brick : food) {
 			graphics2d.fillRect(brick.getPosition().getAbcisse(), brick.getPosition().getOrdonnee(), 9, 9);
 		}
 		
+		//Draw snake
 		graphics2d.setColor(Color.RED);
 		for(Brick brick : snake.getBody()) {
 			graphics2d.fillRect(brick.getPosition().getAbcisse(), brick.getPosition().getOrdonnee(), 9, 9);
@@ -95,7 +104,7 @@ public class Game  extends JFrame {
 	public void serveFood() {
 		Random random = new Random();
 		for(int i =0; i<this.foodQuantity; i++) {
-			Position pieceOfFood = new Position(random.nextInt(76) * 10, random.nextInt(66) * 10);
+			Position pieceOfFood = new Position((random.nextInt(80) + 5) * 10, (random.nextInt(60) + 5) * 10);
 			food.add(new Brick(pieceOfFood));
 		}
 	}

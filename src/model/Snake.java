@@ -92,7 +92,6 @@ public class Snake {
 		default:
 			break;
 		}
-		//System.out.println("abs: " + newHead.getAbcisse() + " ord: " + newHead.getOrdonnee());
 	}
 	
 	public void toTheLeft() {
