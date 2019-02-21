@@ -24,6 +24,7 @@ public class Snake {
 				new Brick(new Position(400, 320))
 		));
 		this.direction = Direction.NORTH;
+		this.state = State.MOVING;
 	}
 
 	public Snake(List<Brick> body, Direction direction, Double speed, State state) {
@@ -64,6 +65,10 @@ public class Snake {
 
 	public void setState(State state) {
 		this.state = state;
+	}
+	
+	public Position getHead() {
+		return this.body.get(0).getPosition();
 	}
 	
 	

@@ -15,9 +15,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.sun.javafx.geom.Ellipse2D;
+
 import model.Brick;
 import model.Position;
 import model.Snake;
+import model.State;
 
 public class Game  extends JFrame {
 	
@@ -70,7 +73,7 @@ public class Game  extends JFrame {
 		//Game zone
 		graphics2d.setColor(Color.RED);
 		//graphics2d.setStroke(new BasicStroke(3));
-		graphics2d.drawRect(50, 50, 800, 600);
+		graphics2d.drawRect(40, 40, 800, 600);
 		
 		//restore stroke
 		//graphics2d.setStroke(defaultStroke);
@@ -86,12 +89,19 @@ public class Game  extends JFrame {
 		for(Brick brick : snake.getBody()) {
 			graphics2d.fillRect(brick.getPosition().getAbcisse(), brick.getPosition().getOrdonnee(), 9, 9);
 		}
+		
+		//Draw Impact of hitting the wall
+		if(this.snake.getState().equals(State.STOPPED)) {
+			Position snakeHead = this.snake.getBody().get(0).getPosition();
+			graphics2d.fillOval(snakeHead.getAbcisse()-5, snakeHead.getOrdonnee()-5, 20, 20);
+		}
 	}
 	
 	public void play() {
-		while(true) {
+		while(this.snake.getState().equals(State.MOVING)) {
 			this.snake.stepForward();
 			eatAPieceOfFood();
+			hitTheWall(this.snake.getHead(), new Position(40, 40), new Position(840, 640));
 			this.repaint();
 				try {
 					Thread.sleep(250);
@@ -121,6 +131,13 @@ public class Game  extends JFrame {
 				this.snake.eat();
 				break;
 			}
+		}
+	}
+	
+	public void hitTheWall(Position position, Position topLeft, Position bottomRight) {
+		if( position.getAbcisse() == topLeft.getAbcisse() || position.getOrdonnee() == topLeft.getOrdonnee()
+				|| position.getAbcisse() == bottomRight.getAbcisse() || position.getOrdonnee() == bottomRight.getOrdonnee()) {
+			this.snake.setState(State.STOPPED);
 		}
 	}
 	
