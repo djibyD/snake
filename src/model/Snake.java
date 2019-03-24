@@ -152,7 +152,6 @@ public class Snake {
 		default:
 			break;
 		}
-		
-	}
+	}	
 	
 }

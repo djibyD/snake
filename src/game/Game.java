@@ -29,6 +29,7 @@ import model.Snake;
 import model.State;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
+import utils.Utils;
 
 public class Game  extends JFrame {
 
@@ -128,14 +129,9 @@ public class Game  extends JFrame {
 		}
 	}
 
-	public boolean isNearFood(Brick snakeHead, Brick food) {
-		return Math.sqrt(Math.pow(snakeHead.getPosition().getAbcisse() - food.getPosition().getAbcisse(), 2.0) 
-				+ Math.pow(snakeHead.getPosition().getOrdonnee() - food.getPosition().getOrdonnee(), 2.0)) <= 5;
-	}
-
 	public void eatAPieceOfFood() {
 		for(Brick pieceOfFood: food) {
-			if(isNearFood(this.snake.getBody().get(0), pieceOfFood)) {
+			if(Utils.distanceLessThan(this.snake.getBody().get(0).getPosition(), pieceOfFood.getPosition())<= 5.0) {
 				food.remove(pieceOfFood);
 				this.snake.eat();
 				break;
