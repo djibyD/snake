@@ -15,7 +15,8 @@ public class Snake {
 	private Direction direction;
 	private Double speed;
 	private State state;
-	
+	private boolean timeToEat;
+
 	public Snake() {
 		super();
 		body = new ArrayList<>(Arrays.asList(
@@ -25,6 +26,7 @@ public class Snake {
 		));
 		this.direction = Direction.NORTH;
 		this.state = State.MOVING;
+		this.timeToEat = false;
 	}
 
 	public Snake(List<Brick> body, Direction direction, Double speed, State state) {
@@ -71,11 +73,22 @@ public class Snake {
 		return this.body.get(0).getPosition();
 	}
 	
+	public boolean isTimeToEat() {
+		return timeToEat;
+	}
+
+	public void setTimeToEat(boolean timeToEat) {
+		this.timeToEat = timeToEat;
+	}
 	
 	public void stepForward() {
 		Position head = body.get(0).getPosition();
 		int nbBrick = body.size() - 1;
-		body.remove(nbBrick);
+		if(!this.isTimeToEat()) {
+			body.remove(nbBrick);
+		} else {
+			this.setTimeToEat(false);
+		}
 		Position newHead;
 		switch (this.direction) {
 		case NORTH:
@@ -128,30 +141,5 @@ public class Snake {
 			break;
 		}
 	}
-	
-	public void eat() {
-		Position head = body.get(0).getPosition();
-		Position newHead;
-		switch (this.direction) {
-		case NORTH:
-			newHead = new Position(head.getAbcisse(), head.getOrdonnee() - 10);
-			body.add(0, new Brick(newHead));
-			break;
-		case SOUTH: 
-			newHead = new Position(head.getAbcisse(), head.getOrdonnee() + 10);
-			body.add(0, new Brick(newHead));
-			break;
-		case EAST:
-			newHead = new Position(head.getAbcisse() + 10, head.getOrdonnee());
-			body.add(0, new Brick(newHead));
-			break;
-		case WEST:
-			newHead = new Position(head.getAbcisse() - 10, head.getOrdonnee());
-			body.add(0, new Brick(newHead));
-			break;
-		default:
-			break;
-		}
-	}	
 	
 }

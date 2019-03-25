@@ -133,7 +133,7 @@ public class Game  extends JFrame {
 		for(Brick pieceOfFood: food) {
 			if(Utils.distanceLessThan(this.snake.getBody().get(0).getPosition(), pieceOfFood.getPosition())<= 5.0) {
 				food.remove(pieceOfFood);
-				this.snake.eat();
+				this.snake.setTimeToEat(true);
 				break;
 			}
 		}
