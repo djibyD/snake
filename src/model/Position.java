@@ -30,6 +30,12 @@ public class Position {
 	public void setOrdonnee(int ordonnee) {
 		this.ordonnee = ordonnee;
 	}
+
+	@Override
+	public String toString() {
+		return "Position [abcisse=" + abcisse + ", ordonnee=" + ordonnee + "]";
+	}
+	
 	
 	
 	

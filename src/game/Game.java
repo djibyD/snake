@@ -7,10 +7,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -18,17 +14,12 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
-import com.sun.javafx.geom.Ellipse2D;
 
 import model.Brick;
 import model.Direction;
 import model.Position;
 import model.Snake;
 import model.State;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
 import utils.Utils;
 
 public class Game  extends JFrame {
@@ -36,6 +27,10 @@ public class Game  extends JFrame {
 	private Snake snake;
 	private int foodQuantity = 10;
 	private List<Brick> food = new ArrayList<Brick>();
+	private int gameZoneWidth = 800;
+	private int gameZoneHeight = 600;
+	private Position gameZonePosition = new Position(50, 50);
+	private int brickSize = 10;
 
 	public Game() {
 		super();
@@ -82,7 +77,7 @@ public class Game  extends JFrame {
 		//Game zone
 		graphics2d.setColor(Color.RED);
 		//graphics2d.setStroke(new BasicStroke(3));
-		graphics2d.drawRect(40, 40, 800, 600);
+		graphics2d.drawRect(50, 50, this.gameZoneWidth, this.gameZoneHeight);
 
 		//restore stroke
 		//graphics2d.setStroke(defaultStroke);
@@ -124,7 +119,10 @@ public class Game  extends JFrame {
 	public void serveFood() {
 		Random random = new Random();
 		for(int i =0; i<this.foodQuantity; i++) {
-			Position pieceOfFood = new Position((random.nextInt(80) + 5) * 10, (random.nextInt(60) + 5) * 10);
+			int min = this.brickSize+50;
+			Position pieceOfFood = new Position(((((random.nextInt((this.gameZoneWidth - this.brickSize) + 1 - min) + min)/10) + 5) * 10),
+					(((random.nextInt((this.gameZoneHeight - this.brickSize)+ 1 - min) + min)/10) + 5) * 10);
+			System.out.println(pieceOfFood.toString());
 			food.add(new Brick(pieceOfFood));
 		}
 	}
@@ -140,8 +138,9 @@ public class Game  extends JFrame {
 	}
 
 	public boolean hitTheWall(Position position, Position topLeft, Position bottomRight) {
-		if( position.getAbcisse() == topLeft.getAbcisse() || position.getOrdonnee() == topLeft.getOrdonnee()
-				|| position.getAbcisse()+10 == bottomRight.getAbcisse() || position.getOrdonnee()+10 == bottomRight.getOrdonnee()) {
+		if( position.getAbcisse() == this.gameZonePosition.getAbcisse() || position.getOrdonnee() == this.gameZonePosition.getOrdonnee()
+				|| position.getAbcisse()+this.brickSize == this.gameZonePosition.getAbcisse() + this.gameZoneWidth || 
+				position.getOrdonnee()+this.brickSize == this.gameZonePosition.getOrdonnee() + this.gameZoneHeight) {
 			this.snake.setState(State.STOPPED);
 			return true;
 		} else {
